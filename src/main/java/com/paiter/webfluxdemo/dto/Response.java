@@ -9,6 +9,7 @@ import java.util.Date;
 @Data
 @ToString
 @NoArgsConstructor
+// @RequiredArgsConstructor
 public class Response {
 
     private Date date = new Date();
