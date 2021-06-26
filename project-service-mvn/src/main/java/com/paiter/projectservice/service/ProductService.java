@@ -34,6 +34,7 @@ public class ProductService {
     public Mono<ProductDto> insertProduct(final Mono<ProductDto> productDtoMono) {
         return productDtoMono
                 .map(translator::toEntity)
+                .doOnNext(System.out::println)
                 .flatMap(this.productRepository::insert)
                 .map(translator::toDto);
     }

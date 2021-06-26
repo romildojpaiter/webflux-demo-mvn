@@ -48,6 +48,7 @@ public class ProductController {
 
     @DeleteMapping("{id}")
     public Mono<Void> deleteProduct(final @PathVariable("id") String id) {
+        assert id.length() > 0 : "Conteudo do id não dever ser vazio";
         return this.productService.deleteProduct(id);
     }
 
