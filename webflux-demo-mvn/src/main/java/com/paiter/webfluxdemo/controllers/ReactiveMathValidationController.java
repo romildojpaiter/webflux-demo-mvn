@@ -28,13 +28,13 @@ public class ReactiveMathValidationController {
     }
 
     @GetMapping("square/{input}/mono-error")
-    public Mono<Response> monoError(@PathVariable int input) {
-        return Mono.just(input)
-                .handle((integer, sink) -> {
-                    if (integer >=10 && integer <=20) {
-                        sink.next(integer);
+    public Mono<Response> monoError(@PathVariable("input") int valueInput) {
+        return Mono.just(valueInput)
+                .handle((valueInteger, outputSink) -> {
+                    if (valueInteger >=10 && valueInteger <=20) {
+                        outputSink.next(valueInteger);
                     } else {
-                        sink.error(new InputValidationException(integer));
+                        outputSink.error(new InputValidationException(valueInteger));
                     }
                 })
                 .cast(Integer.class)
