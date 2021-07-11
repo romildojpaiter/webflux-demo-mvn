@@ -2,12 +2,11 @@ package com.paiter.userservice.controller;
 
 import com.paiter.userservice.dto.TransactionRequestDto;
 import com.paiter.userservice.dto.TransactionResponseDto;
+import com.paiter.userservice.entity.UserTransaction;
 import com.paiter.userservice.service.TransactionService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 @RestController
@@ -20,5 +19,10 @@ public class UserTransactionController {
     @PostMapping
     public Mono<TransactionResponseDto> createTransaction(@RequestBody Mono<TransactionRequestDto> transactionRequestDtoMono) {
         return transactionRequestDtoMono.flatMap(this.transactionService::createTransacion);
+    }
+
+    @GetMapping
+    public Flux<UserTransaction> getByUserid(@RequestParam("userid") int userId) {
+        return this.transactionService.getByUserId(userId);
     }
 }
