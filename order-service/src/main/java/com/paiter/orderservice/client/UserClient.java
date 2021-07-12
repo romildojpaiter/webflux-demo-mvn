@@ -3,9 +3,11 @@ package com.paiter.orderservice.client;
 import com.paiter.orderservice.dto.ProductDto;
 import com.paiter.orderservice.dto.TransactionRequestDto;
 import com.paiter.orderservice.dto.TransactionResponseDto;
+import com.paiter.orderservice.dto.UserDto;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
+import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 @Service
@@ -30,6 +32,14 @@ public class UserClient {
                 .bodyValue(transactionRequestDto)
                 .retrieve()
                 .bodyToMono(TransactionResponseDto.class);
+    }
+
+    public Flux<UserDto> getAllUsers() {
+        return this.webClient
+                .get()
+                .uri("all")
+                .retrieve()
+                .bodyToFlux(UserDto.class);
     }
 
 }
