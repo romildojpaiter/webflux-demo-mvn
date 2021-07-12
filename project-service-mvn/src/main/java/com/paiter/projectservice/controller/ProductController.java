@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
+import java.util.concurrent.ThreadLocalRandom;
+
 @RestController
 @RequestMapping("products")
 @RequiredArgsConstructor
@@ -23,6 +25,7 @@ public class ProductController {
 
     @GetMapping("{id}")
     public Mono<ResponseEntity<ProductDto>> getProductById(final @PathVariable("id") String id) {
+        this.simulateRandomException();
         return this.productService.getProductById(id).map(ResponseEntity::ok)
                 .defaultIfEmpty(ResponseEntity.notFound().build());
     }
@@ -50,6 +53,13 @@ public class ProductController {
     public Mono<Void> deleteProduct(final @PathVariable("id") String id) {
         assert id.length() > 0 : "Conteudo do id não dever ser vazio";
         return this.productService.deleteProduct(id);
+    }
+
+    private void simulateRandomException() {
+        int threadLocalRandom = ThreadLocalRandom.current().nextInt(1, 10);
+        if (threadLocalRandom > 5) {
+            throw new RuntimeException("something is wrong");
+        }
     }
 
 
