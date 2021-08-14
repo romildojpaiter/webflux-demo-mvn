@@ -13,15 +13,15 @@ public interface ProductTranslator extends Translator<Product, ProductDto> {
     ProductTranslator INSTANCE = Mappers.getMapper(ProductTranslator.class);
 
     @Override
-    @Mapping(target = "id", source = "id")
-    @Mapping(target = "description", source = "description")
-    @Mapping(target = "price", source = "price")
+    @Mapping(source = "id", target = "id")
+    @Mapping(source = "description", target = "description")
+    @Mapping( source = "price", target = "price")
     ProductDto toDto(Product product);
 
     @Override
-    @Mapping(target = "id", source = "id")
-    @Mapping(target = "description", source = "description")
-    @Mapping(target = "price", source = "price")
+    @Mapping(source = "id", target = "id")
+    @Mapping(source = "description", target = "description")
+    @Mapping( source = "price", target = "price")
     Product toEntity(ProductDto productDto);
 
 }

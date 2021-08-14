@@ -36,7 +36,7 @@ class OrderServiceApplicationTests {
 
         StepVerifier.create(purchaseOrderResponseDtoFlux)
                 .expectNextCount(4)
-                .verifyComplete();
+                .verifyComplete(); 
     }
 
     private PurchaseOrderRequestDto buildDto(UserDto userDto, ProductDto productDto) {
