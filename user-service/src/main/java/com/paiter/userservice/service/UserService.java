@@ -26,6 +26,7 @@ public class UserService {
         return userDtoMono
                 .map(EntityDtoUtil::toEntity)
                 .flatMap(this.userRepository::save)
+                .doOnNext(user -> System.out.println("After inserting user: " + user))
                 .map(EntityDtoUtil::toDto);
     }
 
